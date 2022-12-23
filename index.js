@@ -52,7 +52,7 @@ cron.schedule(
 );
 
 
-cron.schedule('35 13 * * *', () => {
+cron.schedule('45 13 * * *', () => {
     const data = {
         notification: {
             title: "It's time to take a break",
