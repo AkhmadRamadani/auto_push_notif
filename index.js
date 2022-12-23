@@ -37,6 +37,7 @@ cron.schedule('0 9 * * *', () => {
                 userId: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
+                isRead: false,
             });
         });
     });
@@ -67,13 +68,15 @@ cron.schedule('0 12 * * *', () => {
                 userId: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
+                isRead: false,
+
             });
         });
     });
 
 });
 
-cron.schedule('0 17 * * *', () => {
+cron.schedule('* * * * *', () => {
 
     const data = {
         notification: {
@@ -96,6 +99,8 @@ cron.schedule('0 17 * * *', () => {
                 userId: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
+                isRead: false,
+
             });
         });
     });
@@ -125,6 +130,8 @@ cron.schedule('0 20 * * *', () => {
                 userId: doc.id,
                 date: new Date(),
                 topic: topicFillJournal,
+                isRead: false,
+
             });
         });
     });
@@ -153,6 +160,8 @@ cron.schedule('0 22 * * *', () => {
                 userId: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
+                isRead: false,
+
             });
         });
     });
