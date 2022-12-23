@@ -52,7 +52,7 @@ cron.schedule(
 );
 
 
-cron.schedule('0 12 * * *', () => {
+cron.schedule('35 13 * * *', () => {
     const data = {
         notification: {
             title: "It's time to take a break",
@@ -69,7 +69,7 @@ cron.schedule('0 12 * * *', () => {
     db.collection('users').get().then((snapshot) => {
         snapshot.forEach((doc) => {
             db.collection('notifications').add({
-                title: data.notification.title,
+                title: "testing sajaaaaa untuk liat jakarta timezone",
                 body: data.notification.body,
                 user_id: doc.id,
                 date: new Date(),
