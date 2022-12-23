@@ -34,10 +34,10 @@ cron.schedule('0 9 * * *', () => {
             db.collection('notifications').add({
                 title: data.notification.title,
                 body: data.notification.body,
-                userId: doc.id,
+                user_id: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
-                isRead: false,
+                is_read: false,
             });
         });
     });
@@ -46,7 +46,7 @@ cron.schedule('0 9 * * *', () => {
 });
 
 
-cron.schedule('0 12 * * *', () => {
+cron.schedule('* * * * *', () => {
     const data = {
         notification: {
             title: "It's time to take a break",
@@ -65,10 +65,10 @@ cron.schedule('0 12 * * *', () => {
             db.collection('notifications').add({
                 title: data.notification.title,
                 body: data.notification.body,
-                userId: doc.id,
+                user_id: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
-                isRead: false,
+                is_read: false,
 
             });
         });
@@ -96,10 +96,10 @@ cron.schedule('0 17 * * *', () => {
             db.collection('notifications').add({
                 title: data.notification.title,
                 body: data.notification.body,
-                userId: doc.id,
+                user_id: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
-                isRead: false,
+                is_read: false,
 
             });
         });
@@ -127,10 +127,10 @@ cron.schedule('0 20 * * *', () => {
             db.collection('notifications').add({
                 title: data.notification.title,
                 body: data.notification.body,
-                userId: doc.id,
+                user_id: doc.id,
                 date: new Date(),
                 topic: topicFillJournal,
-                isRead: false,
+                is_read: false,
 
             });
         });
@@ -157,10 +157,10 @@ cron.schedule('0 22 * * *', () => {
             db.collection('notifications').add({
                 title: data.notification.title,
                 body: data.notification.body,
-                userId: doc.id,
+                user_id: doc.id,
                 date: new Date(),
                 topic: topicDrinkReminder,
-                isRead: false,
+                is_read: false,
 
             });
         });
