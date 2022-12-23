@@ -15,35 +15,41 @@ const db = admin.firestore();
 const topicDrinkReminder = "drinkReminder";
 const topicFillJournal = "fillJournal";
 
-cron.schedule('0 9 * * *', () => {
-    const data = {
-        notification: {
-            title: 'Good Morning! Have a Nice Day',
-            body: 'Start your day with a glass of water',
-        },
-        data: {
-            click_action: 'FLUTTER_NOTIFICATION_CLICK',
-        },
-        topic: topicDrinkReminder,
-    };
+cron.schedule(
+    '0 9 * * *',
+    () => {
+        const data = {
+            notification: {
+                title: 'Good Morning! Have a Nice Day',
+                body: 'Start your day with a glass of water',
+            },
+            data: {
+                click_action: 'FLUTTER_NOTIFICATION_CLICK',
+            },
+            topic: topicDrinkReminder,
+        };
 
-    sendNotification(data);
+        sendNotification(data);
 
-    db.collection('users').get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-            db.collection('notifications').add({
-                title: data.notification.title,
-                body: data.notification.body,
-                user_id: doc.id,
-                date: new Date(),
-                topic: topicDrinkReminder,
-                is_read: false,
+        db.collection('users').get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+                db.collection('notifications').add({
+                    title: data.notification.title,
+                    body: data.notification.body,
+                    user_id: doc.id,
+                    date: new Date(),
+                    topic: topicDrinkReminder,
+                    is_read: false,
+                });
             });
         });
-    });
 
 
-});
+    },
+    {
+        timezone: 'Asia/Jakarta',
+    }
+);
 
 
 cron.schedule('0 12 * * *', () => {
@@ -74,6 +80,8 @@ cron.schedule('0 12 * * *', () => {
         });
     });
 
+},{
+    timezone: 'Asia/Jakarta',
 });
 
 cron.schedule('0 17 * * *', () => {
@@ -105,6 +113,8 @@ cron.schedule('0 17 * * *', () => {
         });
     });
 
+},{
+    timezone: 'Asia/Jakarta',
 });
 
 cron.schedule('0 20 * * *', () => {
@@ -165,6 +175,8 @@ cron.schedule('0 22 * * *', () => {
             });
         });
     });
+},{
+    timezone: 'Asia/Jakarta',
 });
 
 
