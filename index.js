@@ -76,7 +76,7 @@ cron.schedule('0 12 * * *', () => {
 
 });
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 17 * * *', () => {
 
     const data = {
         notification: {
