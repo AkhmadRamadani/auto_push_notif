@@ -1,0 +1,24 @@
+{
+  "name": "auto_push_notif",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.4.1",
+    "node-cron": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AkhmadRamadani/auto_push_notif.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AkhmadRamadani/auto_push_notif/issues"
+  },
+  "homepage": "https://github.com/AkhmadRamadani/auto_push_notif#readme"
+}
