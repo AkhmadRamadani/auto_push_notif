@@ -15,6 +15,11 @@ const db = admin.firestore();
 const topicDrinkReminder = "drinkReminder";
 const topicFillJournal = "fillJournal";
 
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+    console.log(new Date());
+});
+
 cron.schedule(
     '0 9 * * *',
     () => {
@@ -52,7 +57,7 @@ cron.schedule(
 );
 
 
-cron.schedule('45 13 * * *', () => {
+cron.schedule('00 12 * * *', () => {
     const data = {
         notification: {
             title: "It's time to take a break",
@@ -69,7 +74,7 @@ cron.schedule('45 13 * * *', () => {
     db.collection('users').get().then((snapshot) => {
         snapshot.forEach((doc) => {
             db.collection('notifications').add({
-                title: "testing sajaaaaa untuk liat jakarta timezone",
+                title: data.notification.title,
                 body: data.notification.body,
                 user_id: doc.id,
                 date: new Date(),
