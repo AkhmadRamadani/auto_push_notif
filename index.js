@@ -11,7 +11,7 @@ admin.initializeApp({
     databaseURL: 'https://mood-journal-435b7.firebaseio.com'
 });
 
-
+const db = admin.firestore();
 
 // get the tokens from the firestore users collection
 const topicDrinkReminder = "drinkReminder";
@@ -21,6 +21,12 @@ const topicFillJournal = "fillJournal";
 //     console.log('running a task every minute');
 //     console.log(new Date());
 // });
+// db.collection('users').get().then((snapshot) => {
+//     snapshot.forEach((doc) => {
+//        console.log(doc.id, '=>', doc.data());
+//     });
+// });
+
 
 cron.schedule(
     '0 9 * * *',
@@ -59,7 +65,7 @@ cron.schedule(
 );
 
 
-cron.schedule('00 12 * * *', () => {
+cron.schedule('0 12 * * *', () => {
     const data = {
         notification: {
             title: "It's time to take a break",
