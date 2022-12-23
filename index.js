@@ -21,7 +21,7 @@ const topicFillJournal = "fillJournal";
 //     });
 // });
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 9 * * *', () => {
     /// get user id from firestore
     db.collection('users').get().then((snapshot) => {
         snapshot.forEach((doc) => {
