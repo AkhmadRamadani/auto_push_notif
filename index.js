@@ -12,19 +12,18 @@ admin.initializeApp({
 });
 
 
-const db = admin.firestore();
 
 // get the tokens from the firestore users collection
 const topicDrinkReminder = "drinkReminder";
 const topicFillJournal = "fillJournal";
 
-cron.schedule('* * * * *', () => {
-    console.log('running a task every minute');
-    console.log(new Date());
-});
+// cron.schedule('* * * * *', () => {
+//     console.log('running a task every minute');
+//     console.log(new Date());
+// });
 
 cron.schedule(
-    '* * * * *',
+    '0 9 * * *',
     () => {
         const data = {
             notification: {
