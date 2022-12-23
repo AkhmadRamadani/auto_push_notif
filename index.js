@@ -1,8 +1,8 @@
 const admin = require('firebase-admin');
 const cron = require('node-cron');
 const firestore = require('@google-cloud/firestore');
-const express = require('express');
-const app = express();
+// const express = require('express');
+// const app = express();
 
 var file = 'mood-journal-435b7-firebase-adminsdk-wkgvn-ef25b6fcbb.json'
 
@@ -11,64 +11,25 @@ admin.initializeApp({
     databaseURL: 'https://mood-journal-435b7.firebaseio.com'
 });
 
-app.all('/', (req, res) => {
-    console.log("Just got a request!")
-    res.send('Yo!')
 
-   
-    const db = admin.firestore();
+const db = admin.firestore();
 
-    // get the tokens from the firestore users collection
-    const topicDrinkReminder = "drinkReminder";
-    const topicFillJournal = "fillJournal";
+// get the tokens from the firestore users collection
+const topicDrinkReminder = "drinkReminder";
+const topicFillJournal = "fillJournal";
 
-    cron.schedule('* * * * *', () => {
-        console.log('running a task every minute');
-        console.log(new Date());
-    });
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+    console.log(new Date());
+});
 
-    cron.schedule(
-        '* * * * *',
-        () => {
-            const data = {
-                notification: {
-                    title: 'Good Morning! Have a Nice Day',
-                    body: 'Start your day with a glass of water',
-                },
-                data: {
-                    click_action: 'FLUTTER_NOTIFICATION_CLICK',
-                },
-                topic: topicDrinkReminder,
-            };
-
-            sendNotification(data);
-
-            db.collection('users').get().then((snapshot) => {
-                snapshot.forEach((doc) => {
-                    db.collection('notifications').add({
-                        title: data.notification.title,
-                        body: data.notification.body,
-                        user_id: doc.id,
-                        date: new Date(),
-                        topic: topicDrinkReminder,
-                        is_read: false,
-                    });
-                });
-            });
-
-
-        },
-        {
-            timezone: 'Asia/Jakarta',
-        }
-    );
-
-
-    cron.schedule('00 12 * * *', () => {
+cron.schedule(
+    '* * * * *',
+    () => {
         const data = {
             notification: {
-                title: "It's time to take a break",
-                body: 'Have a glass of water and keep hydrated',
+                title: 'Good Morning! Have a Nice Day',
+                body: 'Start your day with a glass of water',
             },
             data: {
                 click_action: 'FLUTTER_NOTIFICATION_CLICK',
@@ -87,119 +48,152 @@ app.all('/', (req, res) => {
                     date: new Date(),
                     topic: topicDrinkReminder,
                     is_read: false,
-
                 });
             });
         });
 
-    }, {
+
+    },
+    {
         timezone: 'Asia/Jakarta',
-    });
-
-    cron.schedule('0 17 * * *', () => {
-
-        const data = {
-            notification: {
-                title: "Wow! You've done a great job today",
-                body: "Keep hydrated and don't forget to fill your journal",
-            },
-            data: {
-                click_action: 'FLUTTER_NOTIFICATION_CLICK',
-            },
-            topic: topicDrinkReminder,
-        };
-
-        sendNotification(data);
-
-        db.collection('users').get().then((snapshot) => {
-            snapshot.forEach((doc) => {
-                db.collection('notifications').add({
-                    title: data.notification.title,
-                    body: data.notification.body,
-                    user_id: doc.id,
-                    date: new Date(),
-                    topic: topicDrinkReminder,
-                    is_read: false,
-
-                });
-            });
-        });
-
-    }, {
-        timezone: 'Asia/Jakarta',
-    });
-
-    cron.schedule('0 20 * * *', () => {
-
-        const data = {
-            notification: {
-                title: "How was your day?",
-                body: "We hope you had a great day. Don't forget to fill your journal",
-            },
-            data: {
-                click_action: 'FLUTTER_NOTIFICATION_CLICK',
-            },
-            topic: topicFillJournal,
-        };
-
-        sendNotification(data);
-
-        db.collection('users').get().then((snapshot) => {
-            snapshot.forEach((doc) => {
-                db.collection('notifications').add({
-                    title: data.notification.title,
-                    body: data.notification.body,
-                    user_id: doc.id,
-                    date: new Date(),
-                    topic: topicFillJournal,
-                    is_read: false,
-
-                });
-            });
-        });
-    });
-
-    cron.schedule('0 22 * * *', () => {
-
-        const data = {
-            notification: {
-                title: 'Good Night! Have a Nice Dream',
-                body: 'Rest well and have a glass of water before you sleep',
-            },
-            data: {
-                click_action: 'FLUTTER_NOTIFICATION_CLICK',
-            },
-            topic: topicDrinkReminder,
-        };
-
-        sendNotification(data);
-
-        db.collection('users').get().then((snapshot) => {
-            snapshot.forEach((doc) => {
-                db.collection('notifications').add({
-                    title: data.notification.title,
-                    body: data.notification.body,
-                    user_id: doc.id,
-                    date: new Date(),
-                    topic: topicDrinkReminder,
-                    is_read: false,
-
-                });
-            });
-        });
-    }, {
-        timezone: 'Asia/Jakarta',
-    });
-
-
-    function sendNotification(data) {
-        admin.messaging().send(data)
-            .then((response) => {
-                console.log(`Successfully sent message: ${response}`);
-            })
-            .catch((error) => {
-                console.log(`Error sending message: ${error}`);
-            });
     }
-})
-app.listen(process.env.PORT || 3000)
+);
+
+
+cron.schedule('00 12 * * *', () => {
+    const data = {
+        notification: {
+            title: "It's time to take a break",
+            body: 'Have a glass of water and keep hydrated',
+        },
+        data: {
+            click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },
+        topic: topicDrinkReminder,
+    };
+
+    sendNotification(data);
+
+    db.collection('users').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            db.collection('notifications').add({
+                title: data.notification.title,
+                body: data.notification.body,
+                user_id: doc.id,
+                date: new Date(),
+                topic: topicDrinkReminder,
+                is_read: false,
+
+            });
+        });
+    });
+
+}, {
+    timezone: 'Asia/Jakarta',
+});
+
+cron.schedule('0 17 * * *', () => {
+
+    const data = {
+        notification: {
+            title: "Wow! You've done a great job today",
+            body: "Keep hydrated and don't forget to fill your journal",
+        },
+        data: {
+            click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },
+        topic: topicDrinkReminder,
+    };
+
+    sendNotification(data);
+
+    db.collection('users').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            db.collection('notifications').add({
+                title: data.notification.title,
+                body: data.notification.body,
+                user_id: doc.id,
+                date: new Date(),
+                topic: topicDrinkReminder,
+                is_read: false,
+
+            });
+        });
+    });
+
+}, {
+    timezone: 'Asia/Jakarta',
+});
+
+cron.schedule('0 20 * * *', () => {
+
+    const data = {
+        notification: {
+            title: "How was your day?",
+            body: "We hope you had a great day. Don't forget to fill your journal",
+        },
+        data: {
+            click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },
+        topic: topicFillJournal,
+    };
+
+    sendNotification(data);
+
+    db.collection('users').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            db.collection('notifications').add({
+                title: data.notification.title,
+                body: data.notification.body,
+                user_id: doc.id,
+                date: new Date(),
+                topic: topicFillJournal,
+                is_read: false,
+
+            });
+        });
+    });
+});
+
+cron.schedule('0 22 * * *', () => {
+
+    const data = {
+        notification: {
+            title: 'Good Night! Have a Nice Dream',
+            body: 'Rest well and have a glass of water before you sleep',
+        },
+        data: {
+            click_action: 'FLUTTER_NOTIFICATION_CLICK',
+        },
+        topic: topicDrinkReminder,
+    };
+
+    sendNotification(data);
+
+    db.collection('users').get().then((snapshot) => {
+        snapshot.forEach((doc) => {
+            db.collection('notifications').add({
+                title: data.notification.title,
+                body: data.notification.body,
+                user_id: doc.id,
+                date: new Date(),
+                topic: topicDrinkReminder,
+                is_read: false,
+
+            });
+        });
+    });
+}, {
+    timezone: 'Asia/Jakarta',
+});
+
+
+function sendNotification(data) {
+    admin.messaging().send(data)
+        .then((response) => {
+            console.log(`Successfully sent message: ${response}`);
+        })
+        .catch((error) => {
+            console.log(`Error sending message: ${error}`);
+        });
+}
