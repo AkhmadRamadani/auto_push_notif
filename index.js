@@ -1,8 +1,11 @@
 const admin = require('firebase-admin');
 const cron = require('node-cron');
 const firestore = require('@google-cloud/firestore');
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
+
+var file = 'mood-journal-435b7-firebase-adminsdk-wkgvn-ef25b6fcbb.json'
+
 admin.initializeApp({
     credential: admin.credential.cert(file),
     databaseURL: 'https://mood-journal-435b7.firebaseio.com'
@@ -11,7 +14,6 @@ admin.initializeApp({
 app.all('/', (req, res) => {
     console.log("Just got a request!")
     res.send('Yo!')
-    var file = 'mood-journal-435b7-firebase-adminsdk-wkgvn-ef25b6fcbb.json'
 
    
     const db = admin.firestore();
