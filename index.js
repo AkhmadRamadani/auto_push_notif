@@ -158,6 +158,8 @@ cron.schedule('0 20 * * *', () => {
             });
         });
     });
+}, {
+    timezone: 'Asia/Jakarta',
 });
 
 cron.schedule('0 22 * * *', () => {
